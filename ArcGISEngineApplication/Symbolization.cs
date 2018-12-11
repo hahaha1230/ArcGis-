@@ -21,6 +21,7 @@ namespace ArcGISEngineApplication
         private int CURRENT_LAYER_POINT = 1;               //记录当前选择的是点、线还是面图层
         private int CURRENT_LAYER_LINE = 2;
         private int CURRENT_LAYER_POLYGON = 3;
+        private string symbolizationWay = null;
         private IMap pMap;
         private int type;
         public Symbolization()
@@ -39,19 +40,25 @@ namespace ArcGISEngineApplication
         {
             for (int i = 0; i < pMap.LayerCount; i++)
             {
-                comboBox2.Items.Add(pMap.get_Layer(i).Name);
+                //过滤掉点图层
+                if (getFeatureType(getLayersByName(pMap.get_Layer(i).Name)) != 1)
+                {  
+                    cbLayer.Items.Add(pMap.get_Layer(i).Name);
+                }
+               
             }
         }
 
+       
         private void button1_Click(object sender, EventArgs e)
         {
-            if (comboBox2.Text == null||comboBox1.Text==null)
+            if (cbLayer.Text == null||symbolizationWay==null)
             {
                 MessageBox.Show("需要先选择图层和方法哦！");
                 return;
             }
-            ILayer pLayer = getLayersByName(comboBox2.Text);
-            switch (comboBox1.Text.ToString())
+            ILayer pLayer = getLayersByName(cbLayer.Text);
+            switch (symbolizationWay)
             {  
                 case "简单着色":
                    
@@ -71,15 +78,29 @@ namespace ArcGISEngineApplication
                         polygonClassificationDye(pLayer);
                     }
                     else if (type == CURRENT_LAYER_LINE)
-                    { 
-                        
+                    {
+                        polygonClassificationDye(pLayer);
                     }
                     break;
                 case "唯一值着色":
+                    if (type == CURRENT_LAYER_POLYGON)
+                    {
+                        polygonUniqueDye(pLayer);
+                    }
+                    else if (type == CURRENT_LAYER_LINE)
+                    {
+                        polygonUniqueDye(pLayer);
+                    }
                     break;
                 case "质量图着色":
-                    break;
-                case "依比例符号着色":
+                      if (type == CURRENT_LAYER_POLYGON)
+                    {
+                        polygonQualityDye(pLayer);
+                    }
+                    else if (type == CURRENT_LAYER_LINE)
+                    {
+                        polygonQualityDye(pLayer);
+                    }
                     break;
                 default:
                     break;
@@ -152,7 +173,7 @@ namespace ArcGISEngineApplication
             //设置字段作为要素透明设置的属性
             ITransparencyRenderer pTransRenderer;
             pTransRenderer = pSimpleRenderer as ITransparencyRenderer;
-            pTransRenderer.TransparencyField = comboBox3.Text;
+            pTransRenderer.TransparencyField = cbField1.Text;
             pGeoFeatureLayer.Renderer = pTransRenderer as IFeatureRenderer;
 
             //刷新显示
@@ -161,7 +182,6 @@ namespace ArcGISEngineApplication
 
         private void polygonClassificationDye(ILayer pLayer)
         {
-            
             IGeoFeatureLayer pGeoFeatureLayer;
             ITable pTable;
             IClassifyGEN pClassify;
@@ -185,7 +205,7 @@ namespace ArcGISEngineApplication
             IColor pColor;
             ISimpleFillSymbol pSimpleFillS;
             int IbreakIndex;
-            string strPopFiled = comboBox3.Text;
+            string strPopFiled = cbField1.Text;
             int numDesiredClasses = int.Parse(textBox1.Text.ToString());
 
             IMap pMap = axMapControl1.Map;
@@ -252,6 +272,214 @@ namespace ArcGISEngineApplication
             axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
         }
 
+        private void polygonUniqueDye(ILayer pLayer) 
+        {
+            IGeoFeatureLayer m_pGeoFeatureL;
+            IUniqueValueRenderer pUniqueValueR;
+            IFillSymbol pFillSymbol;
+            IColor pNextUniqueColor;
+            IEnumColors pEnumRamp;
+            ITable pTable;
+            int iFieldNumber;
+            IRow pNextRow;
+            IRowBuffer pNextRowBuffer;
+            ICursor pCursor;
+            IQueryFilter pQueryFilter;
+            string codeValue;
+            IRandomColorRamp pColorRamp;
+
+
+            string strNameField =cbField1.Text;
+
+            IMap pMap = axMapControl1.Map;
+            pMap.ReferenceScale = 0;
+            m_pGeoFeatureL = pLayer as IGeoFeatureLayer;
+            pUniqueValueR = new UniqueValueRendererClass();
+            pTable = (ITable)m_pGeoFeatureL;
+
+            iFieldNumber = pTable.FindField(strNameField);
+            if (iFieldNumber == -1)
+            {
+                MessageBox.Show("未能找到字段" + strNameField);
+                return;
+            }
+            //只用一个字段进行单值着色
+            pUniqueValueR.FieldCount = 1;
+            //用于区分着色的字段
+            pUniqueValueR.set_Field(0, strNameField);
+            //产生一个随机的颜色条，用的是HSV颜色模式
+            pColorRamp = new RandomColorRampClass();
+            pColorRamp.StartHue = 0;
+            pColorRamp.MinValue = 99;
+            pColorRamp.MinSaturation = 15;
+            pColorRamp.EndHue = 360;
+            pColorRamp.MaxValue = 100;
+            pColorRamp.MaxSaturation = 30;
+            //任意产生100歌颜色，如果知道要素的数据可以产生精确的颜色数目
+            pColorRamp.Size = 100;
+            bool ok = true;
+            pColorRamp.CreateRamp(out ok);
+            pEnumRamp = pColorRamp.Colors;
+            pNextUniqueColor = null;
+            //产生查询过滤器的对象
+            pQueryFilter = new QueryFilterClass();
+            pQueryFilter.AddField(strNameField);
+            //根据某个字段在表中找出指向所有行的游标对象
+            pCursor = pTable.Search(pQueryFilter, true);
+            pNextRow = pCursor.NextRow();
+            //遍历所有的要素
+            while (pNextRow != null)
+            {
+                pNextRowBuffer = pNextRow;
+                //找出row为某个定值的值
+                codeValue = pNextRowBuffer.get_Value(iFieldNumber).ToString();
+                //获取随机颜色带中的任意一个颜色
+                pNextUniqueColor = pEnumRamp.Next();
+                if (pNextUniqueColor == null)
+                {
+                    pEnumRamp.Reset();
+                    pNextUniqueColor = pEnumRamp.Next();
+
+                }
+                pFillSymbol = new SimpleFillSymbolClass();
+                pFillSymbol.Color = pNextUniqueColor;
+                //将每次得到的要素字段值和修饰它的符号值放入着色对象中
+                pUniqueValueR.AddValue(codeValue, strNameField, (ISymbol)pFillSymbol);
+                pNextRow = pCursor.NextRow();
+            }
+            m_pGeoFeatureL.Renderer = (IFeatureRenderer)pUniqueValueR;
+            axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+        }
+
+
+        private void polygonQualityDye (ILayer pLayer)
+        {
+            IGeoFeatureLayer pGeoFeatureL;
+            IFeatureLayer pFeatureLayer;
+            ITable pTable;
+            ICursor pCursor;
+            IQueryFilter pQueryFilter;
+            IRowBuffer pRowBuffer;
+            int numFields = 2;
+            int[] fieldIndecies = new int[numFields];
+            int iFieldIndex;
+            double dMaxValue;
+            bool isFirstValue;
+            double dFieldValue;
+            IChartRenderer pChartRenderer;
+            IRendererFields pRenderFields;
+            IFillSymbol pFillSymbol;
+            IMarkerSymbol pMarkerSymbol;
+            ISymbolArray pSymbolArray;
+            IChartSymbol pCharSymbol;
+            //设置需要的字段信息
+            string strPopField1 = cbField1.Text;
+            string strPopField2 = cbField2.Text;
+
+            IMap pMap = axMapControl1.Map;
+            pMap.ReferenceScale = pMap.MapScale;
+            pFeatureLayer = (IGeoFeatureLayer)pLayer;
+            pGeoFeatureL = (IGeoFeatureLayer)pFeatureLayer;
+            pTable = (ITable)pGeoFeatureL;
+
+            pGeoFeatureL.ScaleSymbols = true;
+            pChartRenderer = new ChartRendererClass();
+            //设置柱状图中所需要绘制的属性
+            pRenderFields = (IRendererFields)pChartRenderer;
+            pRenderFields.AddField(strPopField1, strPopField1);
+            pRenderFields.AddField(strPopField2, strPopField2);
+            pQueryFilter = new QueryFilterClass();
+            pQueryFilter.AddField(strPopField1);
+            pQueryFilter.AddField(strPopField2);
+            pCursor = pTable.Search(pQueryFilter, true);
+            fieldIndecies[0] = pTable.FindField(strPopField1);
+            fieldIndecies[1] = pTable.FindField(strPopField2);
+            isFirstValue = true;
+            dMaxValue = 0;
+            //迭代坊问每一个要素
+            pRowBuffer = pCursor.NextRow();
+            try
+            {
+                while (pRowBuffer != null)
+                {
+                    for (iFieldIndex = 0; iFieldIndex <= numFields - 1; iFieldIndex++)
+                    {
+                        //迭代访问要素的字段值并对最大值进行更新和标记
+                        dFieldValue = double.Parse(pRowBuffer.get_Value(fieldIndecies[iFieldIndex]).ToString());
+
+                        if (isFirstValue)
+                        {
+                            //将最大值dmax初始化为第一个值
+                            dMaxValue = dFieldValue;
+                            isFirstValue = false;
+                        }
+                        else
+                        {
+                            if (dFieldValue > dMaxValue)
+                            {
+                                //获取最大值时候进行更新
+                                dMaxValue = dFieldValue;
+                            }
+                        }
+                    }
+                    pRowBuffer = pCursor.NextRow();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("该字段中有不合法的值，请重新选择字段");
+            }
+
+            if (dMaxValue <= 0)
+            {
+                MessageBox.Show("获取要素失败");
+                return;
+            }
+            //设置需要渲染的柱状图符号
+            IBarChartSymbol pBarChartSymbol;
+            pBarChartSymbol = new BarChartSymbolClass();
+            pCharSymbol = (IChartSymbol)pBarChartSymbol;
+            pBarChartSymbol.Width = 12;
+            pMarkerSymbol = (IMarkerSymbol)pBarChartSymbol;
+            //设置柱状图的最大值
+            pCharSymbol.MaxValue = dMaxValue;
+            //设置柱状图的最大渲染高度
+            pMarkerSymbol.Size = 80;
+            //为每个柱状图设置符号
+            pSymbolArray = (ISymbolArray)pBarChartSymbol;
+            //为每个柱状图添加颜色
+            pFillSymbol = new SimpleFillSymbolClass();
+            IRgbColor color = new RgbColorClass();
+            color.Red = 213;
+            color.Green = 212;
+            color.Blue = 252;
+            pFillSymbol.Color = color;
+            pSymbolArray.AddSymbol((ISymbol)pFillSymbol);
+            pFillSymbol = new SimpleFillSymbolClass();
+            color.Red = 193;
+            color.Green = 252;
+            color.Blue = 179;
+            pFillSymbol.Color = color;
+            pSymbolArray.AddSymbol((ISymbol)pFillSymbol);
+            //设置渲染符号为柱状图
+            pChartRenderer.ChartSymbol = (IChartSymbol)pBarChartSymbol;
+
+            pChartRenderer.Label = cbField1.Text;
+            //设置柱状图的背景颜色
+            pFillSymbol = new SimpleFillSymbolClass();
+            color.Red = 239;
+            color.Green = 228;
+            color.Blue = 190;
+            pFillSymbol.Color = color;
+            pChartRenderer.BaseSymbol = (ISymbol)pFillSymbol;
+            //设置overpoaster属性为false，使柱状图显示在polygon多边形要素的中间
+            pChartRenderer.UseOverposter = false;
+            pChartRenderer.CreateLegend();
+            //更新柱状图和刷新显示
+            pGeoFeatureL.Renderer = (IFeatureRenderer)pChartRenderer;
+            axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+        }
+
         private ILayer getLayersByName(string layerName)
         {
             for (int i = 0; i < pMap.LayerCount; i++)
@@ -266,19 +494,24 @@ namespace ArcGISEngineApplication
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox2.Text == null)
+            if (cbLayer.Text == null)
             {
                 return;
             }
-            comboBox3.Items.Clear();
-            IFeatureLayer featureLayer = (IFeatureLayer)getLayersByName(comboBox2.Text);
+            cbField1.Items.Clear();
+            IFeatureLayer featureLayer = (IFeatureLayer)getLayersByName(cbLayer.Text);
             IFeatureClass pFeatureClass = featureLayer.FeatureClass;
             IFields pFields = pFeatureClass.Fields;
             for (int i = 0; i < pFields.FieldCount; i++)
             {
-                comboBox3.Items.Add(pFields.get_Field(i).Name);
+               // MessageBox.Show(pFields.get_Field(i).Name + ":" + pFields.get_Field(i).Type);
+                if (pFields.get_Field(i).Type == esriFieldType.esriFieldTypeDouble)
+                {  
+                    cbField1.Items.Add(pFields.get_Field(i).Name);
+                }
+               
             }
-            getFeatureType(getLayersByName(comboBox2.Text));
+            getFeatureType(getLayersByName(cbLayer.Text));
            
         }
         #region 根据图层名获取图层类型（点、线、面）
@@ -307,6 +540,56 @@ namespace ArcGISEngineApplication
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void 分级着色ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Enabled = true;
+            cbField2.Enabled = false;
+            symbolizationWay = "分级着色";
+        }
+
+        private void 简单着色ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbField2.Enabled = false;
+            textBox1.Enabled = false;
+            symbolizationWay = "简单着色";
+        }
+
+        private void 唯一值着色ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cbField2.Enabled = false;
+            textBox1.Enabled = false;
+            symbolizationWay = "唯一值着色";
+        }
+
+        private void 质量图着色ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Enabled = false;
+            cbField2.Enabled = true;
+            symbolizationWay = "质量图着色";
+        }
+
+        private void cbField1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbField2.Enabled == true)
+            {
+                cbField2.Items.Clear();
+                IFeatureLayer featureLayer = (IFeatureLayer)getLayersByName(cbLayer.Text);
+                IFeatureClass pFeatureClass = featureLayer.FeatureClass;
+                IFields pFields = pFeatureClass.Fields;
+                for (int i = 0; i < pFields.FieldCount; i++)
+                {
+                   // MessageBox.Show(pFields.get_Field(i).Name + ":" + pFields.get_Field(i).Type);
+                    //设置筛选条件为只能是int类型的字段而且去除掉cbfield1已经选过的字段
+                    if ((pFields.get_Field(i).Type == esriFieldType.esriFieldTypeDouble) &&
+                        (!pFields.get_Field(i).Name.Equals(cbField1.Text)))
+                    {
+                         cbField2.Items.Add(pFields.get_Field(i).Name);
+                    }
+                }
+             
+            }
         }
         
     }

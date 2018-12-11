@@ -633,6 +633,8 @@ namespace ArcGISEngineApplication
             {
                 //点击图层的符号可以进行更改
 
+              
+
                 if (mItem == esriTOCControlItem.esriTOCControlItemLegendClass)
                 {
 
@@ -1667,6 +1669,252 @@ namespace ArcGISEngineApplication
             selectByProperty.Show();
         }
 
+        private void 打开个人地理数据库ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "个人数据库（*.mdb）|*.mdb";
+            openFileDialog.Multiselect = false;
+            openFileDialog.FileName = "";
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
+            {
+                string path = openFileDialog.FileName;
+                string folder = System.IO.Path.GetDirectoryName(path);
+                string fileName = System.IO.Path.GetFileName(path);
+
+                IWorkspaceFactory workspaceFactory = new AccessWorkspaceFactoryClass();
+
+                IWorkspace workSpace = workspaceFactory.OpenFromFile(path, 0);
+                if (workSpace != null)
+                {
+                    MessageBox.Show("个人地理数据库已经打开");
+                    AddDataToMap(workSpace);
+                }
+                else
+                {
+                    MessageBox.Show("数据库打不开");
+
+                }
+
+
+            }
+            else
+            {
+
+                return;
+            }
+        }
+
+
+        private void AddDataToMap(IWorkspace pWorkspace)
+        {
+            //获取工作空间内数据集
+            IEnumDataset pEnumDataset;
+            pEnumDataset = pWorkspace.get_Datasets(esriDatasetType.esriDTFeatureClass);
+            IDataset pDataset;
+            pEnumDataset.Reset();
+            pDataset = pEnumDataset.Next();
+            //创建图层
+            IFeatureClass pFeatureClass = pDataset as IFeatureClass;
+
+            while (pDataset != null)
+            {
+                IFeatureLayer pLayer = new FeatureLayerClass();
+                MessageBox.Show("添加要素类" + pDataset.Name + "!");
+                pFeatureClass = pDataset as IFeatureClass;
+                pLayer.FeatureClass = pFeatureClass;
+                //传递图层名称
+                pLayer.Name = pDataset.Name;
+
+                axMapControl1.AddLayer(pLayer);
+                pDataset = pEnumDataset.Next();
+            }
+
+        }
+
+        private void 获取要素类ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string wsName = WsPath();
+            if (wsName != null)
+            {
+                try
+                {
+                    string content = null;
+                    string featureClassNames = null;
+                    IWorkspaceFactory pWsFt = new AccessWorkspaceFactoryClass();
+                    IWorkspace pWs = pWsFt.OpenFromFile(wsName, 0);
+                    IEnumDataset pEDataset = pWs.get_Datasets(esriDatasetType.esriDTAny);
+                    IDataset pDataset = pEDataset.Next();
+
+                    while (pDataset != null)
+                    {
+                        content = content + "  " + pDataset.Name;
+                        //要素类
+                        if (pDataset.Type == esriDatasetType.esriDTFeatureClass)
+                        {
+                            featureClassNames += pDataset.Name;
+                        }
+                        //要素数据集
+                        if (pDataset.Type == esriDatasetType.esriDTFeatureDataset)
+                        {
+                            IEnumDataset pESubDataset = pDataset.Subsets;
+                            IDataset pSubDataset = pESubDataset.Next();
+                            while (pSubDataset != null)
+                            {
+                                content += pSubDataset.Name;
+
+                                pSubDataset = pESubDataset.Next();
+                            }
+
+                        }
+                        pDataset = pEDataset.Next();
+                    }
+                    if (content != null)
+                    {
+                        MessageBox.Show("所有的数据集为：" + content + ";要素类为：" + featureClassNames);
+                    }
+                    else
+                    {
+                        MessageBox.Show("这里面没有数据集");
+                    }
+                }
+                catch (Exception ee)
+                {
+
+
+
+                }
+
+            }
+        }
+
+        private void 创建要素类ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NewFeatureClass newFeatureClass = new NewFeatureClass();
+            newFeatureClass.Show();
+            //定义空间参考系
+            /*Type factoryType = Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment");
+            System.Object obj = Activator.CreateInstance(factoryType);
+            ISpatialReferenceFactory3 spatialReferenceFactory = obj as ISpatialReferenceFactory3;
+            ISpatialReference pSpatialReference = spatialReferenceFactory.CreateSpatialReference((int)esriSRGeoCSType.esriSRGeoCS_WGS1984);
+            
+            IGeometryDefEdit pGeoDef = new GeometryDefClass();
+            IGeometryDefEdit pGeoDefEdit = pGeoDef as IGeometryDefEdit;
+            pGeoDefEdit.GeometryType_2 = esriGeometryType.esriGeometryPoint;
+             pGeoDefEdit.SpatialReference_2 = pSpatialReference;
+            //定义一个字段几何集合
+            IFields pFields = new FieldsClass();
+            IFieldsEdit pFieldsEdit = (IFieldsEdit)pFields;
+            //定义单个字段
+            IField pField = new FieldClass();
+            IFieldEdit pFieldEdit = (IFieldEdit)pField;
+            pFieldEdit.Name_2 = "SHAPE";
+            pFieldEdit.Type_2 = esriFieldType.esriFieldTypeGeometry;
+            pFieldsEdit.AddField(pField);
+            //定义单个字段，并添加到字段集合中
+            pFieldEdit.GeometryDef_2 = pGeoDef;
+            pField = new FieldClass();
+            pFieldEdit = (IFieldEdit)pField;
+            pFieldEdit.Name_2 = "地名";
+            pFieldEdit.Type_2 = esriFieldType.esriFieldTypeString;
+            pFieldsEdit.AddField(pField);
+            MessageBox.Show("哈哈哈，但愿能成功");*/
+
+
+        }
+
+
+        private void 删除要素类ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string wsName = WsPath();
+            if (wsName != "")
+            {
+                IWorkspaceFactory pWsFt = new AccessWorkspaceFactoryClass();
+                IWorkspace pWs = pWsFt.OpenFromFile(wsName, 0);
+                IFeatureWorkspace pFWs = pWs as IFeatureWorkspace;
+
+                IFeatureClass pFeatureClass = pFWs.OpenFeatureClass("point1");
+
+                IDataset pDataset = pFeatureClass as IDataset;
+                pDataset.Delete();
+                MessageBox.Show("要素类删除成功");
+            }
+
+        }
+
+        private void 点选ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 相交运算ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+      
+        private void 包含统计ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             containQuery = new ContainsQuery(axMapControl1.Map,player,axMapControl1);
+             containQuery.Show();
+        }
+
+        private void 缓冲分析ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BufferSettings bufferSettings = new BufferSettings(axMapControl1.Map, player, axMapControl1);
+            bufferSettings.Show();
+        }
+
+        private void 邻近矩阵ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            IFeatureClass pPolygonClass = GetFeatureClass(@"C:\Users\佳佳\Desktop\ArcMap\Data", "四川县界");
+           // ITable pTable=
+        }
+
+        private IFeatureClass GetFeatureClass(string FilePath, string LayerName)
+        {
+            IWorkspaceFactory pWs = new ShapefileWorkspaceFactoryClass();
+            IFeatureWorkspace pFw = pWs.OpenFromFile(FilePath, 0) as IFeatureWorkspace;
+            IFeatureClass pRtClass = pFw.OpenFeatureClass(LayerName);
+            return pRtClass;
+        }
+
+        private void 求交ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string cmd="intersection";
+            Intersection intersection = new Intersection(axMapControl1,cmd);
+            intersection.Show();
+        }
+
+        private void 求和ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string cmd = "union";
+            Intersection intersection = new Intersection(axMapControl1, cmd);
+            intersection.Show();
+        }
+
+        private void 裁剪ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string cmd = "clip";
+            Intersection intersection = new Intersection(axMapControl1, cmd);
+            intersection.Show();
+        }
+
+        private void 异或ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string cmd = "xor";
+            Intersection intersection = new Intersection(axMapControl1, cmd);
+            intersection.Show();
+        }
+
+        private void 符号化ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+           Symbolization symbolization = new Symbolization(axMapControl1);
+           symbolization.Show();
+           
+        }
+
+        #region 符号化（没用的代码）
         private void 点密度符号化ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Symbolization symbolization = new Symbolization(axMapControl1);
@@ -1706,6 +1954,7 @@ namespace ArcGISEngineApplication
             //axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
         }
 
+       
         private void 分级着色ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             IGeoFeatureLayer pGeoFeatureLayer;
@@ -2076,244 +2325,7 @@ namespace ArcGISEngineApplication
             pGeoFeatureLayer.Renderer = (IFeatureRenderer)pProportionalSymbolR;
             axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
         }
-
-        private void 打开个人地理数据库ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "个人数据库（*.mdb）|*.mdb";
-            openFileDialog.Multiselect = false;
-            openFileDialog.FileName = "";
-            DialogResult dialogResult = openFileDialog.ShowDialog();
-            if (dialogResult == DialogResult.OK)
-            {
-                string path = openFileDialog.FileName;
-                string folder = System.IO.Path.GetDirectoryName(path);
-                string fileName = System.IO.Path.GetFileName(path);
-
-                IWorkspaceFactory workspaceFactory = new AccessWorkspaceFactoryClass();
-
-                IWorkspace workSpace = workspaceFactory.OpenFromFile(path, 0);
-                if (workSpace != null)
-                {
-                    MessageBox.Show("个人地理数据库已经打开");
-                    AddDataToMap(workSpace);
-                }
-                else
-                {
-                    MessageBox.Show("数据库打不开");
-
-                }
-
-
-            }
-            else
-            {
-
-                return;
-            }
-        }
-
-
-        private void AddDataToMap(IWorkspace pWorkspace)
-        {
-            //获取工作空间内数据集
-            IEnumDataset pEnumDataset;
-            pEnumDataset = pWorkspace.get_Datasets(esriDatasetType.esriDTFeatureClass);
-            IDataset pDataset;
-            pEnumDataset.Reset();
-            pDataset = pEnumDataset.Next();
-            //创建图层
-            IFeatureClass pFeatureClass = pDataset as IFeatureClass;
-
-            while (pDataset != null)
-            {
-                IFeatureLayer pLayer = new FeatureLayerClass();
-                MessageBox.Show("添加要素类" + pDataset.Name + "!");
-                pFeatureClass = pDataset as IFeatureClass;
-                pLayer.FeatureClass = pFeatureClass;
-                //传递图层名称
-                pLayer.Name = pDataset.Name;
-
-                axMapControl1.AddLayer(pLayer);
-                pDataset = pEnumDataset.Next();
-            }
-
-        }
-
-        private void 获取要素类ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string wsName = WsPath();
-            if (wsName != null)
-            {
-                try
-                {
-                    string content = null;
-                    string featureClassNames = null;
-                    IWorkspaceFactory pWsFt = new AccessWorkspaceFactoryClass();
-                    IWorkspace pWs = pWsFt.OpenFromFile(wsName, 0);
-                    IEnumDataset pEDataset = pWs.get_Datasets(esriDatasetType.esriDTAny);
-                    IDataset pDataset = pEDataset.Next();
-
-                    while (pDataset != null)
-                    {
-                        content = content + "  " + pDataset.Name;
-                        //要素类
-                        if (pDataset.Type == esriDatasetType.esriDTFeatureClass)
-                        {
-                            featureClassNames += pDataset.Name;
-                        }
-                        //要素数据集
-                        if (pDataset.Type == esriDatasetType.esriDTFeatureDataset)
-                        {
-                            IEnumDataset pESubDataset = pDataset.Subsets;
-                            IDataset pSubDataset = pESubDataset.Next();
-                            while (pSubDataset != null)
-                            {
-                                content += pSubDataset.Name;
-
-                                pSubDataset = pESubDataset.Next();
-                            }
-
-                        }
-                        pDataset = pEDataset.Next();
-                    }
-                    if (content != null)
-                    {
-                        MessageBox.Show("所有的数据集为：" + content + ";要素类为：" + featureClassNames);
-                    }
-                    else
-                    {
-                        MessageBox.Show("这里面没有数据集");
-                    }
-                }
-                catch (Exception ee)
-                {
-
-
-
-                }
-
-            }
-        }
-
-        private void 创建要素类ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NewFeatureClass newFeatureClass = new NewFeatureClass();
-            newFeatureClass.Show();
-            //定义空间参考系
-            /*Type factoryType = Type.GetTypeFromProgID("esriGeometry.SpatialReferenceEnvironment");
-            System.Object obj = Activator.CreateInstance(factoryType);
-            ISpatialReferenceFactory3 spatialReferenceFactory = obj as ISpatialReferenceFactory3;
-            ISpatialReference pSpatialReference = spatialReferenceFactory.CreateSpatialReference((int)esriSRGeoCSType.esriSRGeoCS_WGS1984);
-            
-            IGeometryDefEdit pGeoDef = new GeometryDefClass();
-            IGeometryDefEdit pGeoDefEdit = pGeoDef as IGeometryDefEdit;
-            pGeoDefEdit.GeometryType_2 = esriGeometryType.esriGeometryPoint;
-             pGeoDefEdit.SpatialReference_2 = pSpatialReference;
-            //定义一个字段几何集合
-            IFields pFields = new FieldsClass();
-            IFieldsEdit pFieldsEdit = (IFieldsEdit)pFields;
-            //定义单个字段
-            IField pField = new FieldClass();
-            IFieldEdit pFieldEdit = (IFieldEdit)pField;
-            pFieldEdit.Name_2 = "SHAPE";
-            pFieldEdit.Type_2 = esriFieldType.esriFieldTypeGeometry;
-            pFieldsEdit.AddField(pField);
-            //定义单个字段，并添加到字段集合中
-            pFieldEdit.GeometryDef_2 = pGeoDef;
-            pField = new FieldClass();
-            pFieldEdit = (IFieldEdit)pField;
-            pFieldEdit.Name_2 = "地名";
-            pFieldEdit.Type_2 = esriFieldType.esriFieldTypeString;
-            pFieldsEdit.AddField(pField);
-            MessageBox.Show("哈哈哈，但愿能成功");*/
-
-
-        }
-
-
-        private void 删除要素类ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string wsName = WsPath();
-            if (wsName != "")
-            {
-                IWorkspaceFactory pWsFt = new AccessWorkspaceFactoryClass();
-                IWorkspace pWs = pWsFt.OpenFromFile(wsName, 0);
-                IFeatureWorkspace pFWs = pWs as IFeatureWorkspace;
-
-                IFeatureClass pFeatureClass = pFWs.OpenFeatureClass("point1");
-
-                IDataset pDataset = pFeatureClass as IDataset;
-                pDataset.Delete();
-                MessageBox.Show("要素类删除成功");
-            }
-
-        }
-
-        private void 点选ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 相交运算ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-      
-        private void 包含统计ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-             containQuery = new ContainsQuery(axMapControl1.Map,player,axMapControl1);
-             containQuery.Show();
-        }
-
-        private void 缓冲分析ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            BufferSettings bufferSettings = new BufferSettings(axMapControl1.Map, player, axMapControl1);
-            bufferSettings.Show();
-        }
-
-        private void 邻近矩阵ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            IFeatureClass pPolygonClass = GetFeatureClass(@"C:\Users\佳佳\Desktop\ArcMap\Data", "四川县界");
-           // ITable pTable=
-        }
-
-        private IFeatureClass GetFeatureClass(string FilePath, string LayerName)
-        {
-            IWorkspaceFactory pWs = new ShapefileWorkspaceFactoryClass();
-            IFeatureWorkspace pFw = pWs.OpenFromFile(FilePath, 0) as IFeatureWorkspace;
-            IFeatureClass pRtClass = pFw.OpenFeatureClass(LayerName);
-            return pRtClass;
-        }
-
-        private void 求交ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cmd="intersection";
-            Intersection intersection = new Intersection(axMapControl1,cmd);
-            intersection.Show();
-        }
-
-        private void 求和ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cmd = "union";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
-            intersection.Show();
-        }
-
-        private void 裁剪ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cmd = "clip";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
-            intersection.Show();
-        }
-
-        private void 异或ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string cmd = "xor";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
-            intersection.Show();
-        }
+#endregion
 
       
 

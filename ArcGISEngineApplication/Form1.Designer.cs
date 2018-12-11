@@ -35,6 +35,7 @@
             this.地图加载ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.结束ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.加载栅格文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.保存文档ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.地图量测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.距离量测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.面积量测ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,12 +56,6 @@
             this.邻接多边形查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.属性查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.点选ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.符号化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.点密度符号化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.分级着色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.唯一值着色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.质量图着色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.依比例符号着色ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.空间数据管理ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开个人地理数据库ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.获取要素类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -105,7 +100,8 @@
             this.statusStrip3 = new System.Windows.Forms.StatusStrip();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
-            this.保存文档ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.符号化ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -138,9 +134,9 @@
             this.添加ToolStripMenuItem,
             this.要素选择ToolStripMenuItem,
             this.空间查询ToolStripMenuItem,
-            this.符号化ToolStripMenuItem,
             this.空间数据管理ToolStripMenuItem,
-            this.空间分析ToolStripMenuItem});
+            this.空间分析ToolStripMenuItem,
+            this.显示ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(923, 28);
@@ -178,6 +174,13 @@
             this.加载栅格文件ToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
             this.加载栅格文件ToolStripMenuItem.Text = "加载栅格文件";
             this.加载栅格文件ToolStripMenuItem.Click += new System.EventHandler(this.加载栅格文件ToolStripMenuItem_Click);
+            // 
+            // 保存文档ToolStripMenuItem
+            // 
+            this.保存文档ToolStripMenuItem.Name = "保存文档ToolStripMenuItem";
+            this.保存文档ToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.保存文档ToolStripMenuItem.Text = "保存文档";
+            this.保存文档ToolStripMenuItem.Click += new System.EventHandler(this.保存文档ToolStripMenuItem_Click);
             // 
             // 地图量测ToolStripMenuItem
             // 
@@ -336,53 +339,6 @@
             this.点选ToolStripMenuItem.Text = "点选";
             this.点选ToolStripMenuItem.Click += new System.EventHandler(this.点选ToolStripMenuItem_Click);
             // 
-            // 符号化ToolStripMenuItem
-            // 
-            this.符号化ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.点密度符号化ToolStripMenuItem,
-            this.分级着色ToolStripMenuItem,
-            this.唯一值着色ToolStripMenuItem,
-            this.质量图着色ToolStripMenuItem,
-            this.依比例符号着色ToolStripMenuItem});
-            this.符号化ToolStripMenuItem.Name = "符号化ToolStripMenuItem";
-            this.符号化ToolStripMenuItem.Size = new System.Drawing.Size(66, 24);
-            this.符号化ToolStripMenuItem.Text = "符号化";
-            // 
-            // 点密度符号化ToolStripMenuItem
-            // 
-            this.点密度符号化ToolStripMenuItem.Name = "点密度符号化ToolStripMenuItem";
-            this.点密度符号化ToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.点密度符号化ToolStripMenuItem.Text = "简单着色";
-            this.点密度符号化ToolStripMenuItem.Click += new System.EventHandler(this.点密度符号化ToolStripMenuItem_Click);
-            // 
-            // 分级着色ToolStripMenuItem
-            // 
-            this.分级着色ToolStripMenuItem.Name = "分级着色ToolStripMenuItem";
-            this.分级着色ToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.分级着色ToolStripMenuItem.Text = "分级着色";
-            this.分级着色ToolStripMenuItem.Click += new System.EventHandler(this.分级着色ToolStripMenuItem_Click);
-            // 
-            // 唯一值着色ToolStripMenuItem
-            // 
-            this.唯一值着色ToolStripMenuItem.Name = "唯一值着色ToolStripMenuItem";
-            this.唯一值着色ToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.唯一值着色ToolStripMenuItem.Text = "唯一值着色";
-            this.唯一值着色ToolStripMenuItem.Click += new System.EventHandler(this.唯一值着色ToolStripMenuItem_Click);
-            // 
-            // 质量图着色ToolStripMenuItem
-            // 
-            this.质量图着色ToolStripMenuItem.Name = "质量图着色ToolStripMenuItem";
-            this.质量图着色ToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.质量图着色ToolStripMenuItem.Text = "质量图着色";
-            this.质量图着色ToolStripMenuItem.Click += new System.EventHandler(this.质量图着色ToolStripMenuItem_Click);
-            // 
-            // 依比例符号着色ToolStripMenuItem
-            // 
-            this.依比例符号着色ToolStripMenuItem.Name = "依比例符号着色ToolStripMenuItem";
-            this.依比例符号着色ToolStripMenuItem.Size = new System.Drawing.Size(183, 24);
-            this.依比例符号着色ToolStripMenuItem.Text = "依比例符号着色";
-            this.依比例符号着色ToolStripMenuItem.Click += new System.EventHandler(this.依比例符号着色ToolStripMenuItem_Click);
-            // 
             // 空间数据管理ToolStripMenuItem
             // 
             this.空间数据管理ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -436,21 +392,21 @@
             // 相交运算ToolStripMenuItem
             // 
             this.相交运算ToolStripMenuItem.Name = "相交运算ToolStripMenuItem";
-            this.相交运算ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.相交运算ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
             this.相交运算ToolStripMenuItem.Text = "相交运算";
             this.相交运算ToolStripMenuItem.Click += new System.EventHandler(this.相交运算ToolStripMenuItem_Click);
             // 
             // 包含统计ToolStripMenuItem
             // 
             this.包含统计ToolStripMenuItem.Name = "包含统计ToolStripMenuItem";
-            this.包含统计ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.包含统计ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
             this.包含统计ToolStripMenuItem.Text = "包含统计";
             this.包含统计ToolStripMenuItem.Click += new System.EventHandler(this.包含统计ToolStripMenuItem_Click);
             // 
             // 缓冲分析ToolStripMenuItem
             // 
             this.缓冲分析ToolStripMenuItem.Name = "缓冲分析ToolStripMenuItem";
-            this.缓冲分析ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.缓冲分析ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
             this.缓冲分析ToolStripMenuItem.Text = "缓冲分析";
             this.缓冲分析ToolStripMenuItem.Click += new System.EventHandler(this.缓冲分析ToolStripMenuItem_Click);
             // 
@@ -462,34 +418,34 @@
             this.裁剪ToolStripMenuItem,
             this.异或ToolStripMenuItem});
             this.叠加分析ToolStripMenuItem.Name = "叠加分析ToolStripMenuItem";
-            this.叠加分析ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.叠加分析ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
             this.叠加分析ToolStripMenuItem.Text = "叠加分析";
             // 
             // 求交ToolStripMenuItem
             // 
             this.求交ToolStripMenuItem.Name = "求交ToolStripMenuItem";
-            this.求交ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.求交ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.求交ToolStripMenuItem.Text = "求交";
             this.求交ToolStripMenuItem.Click += new System.EventHandler(this.求交ToolStripMenuItem_Click);
             // 
             // 求和ToolStripMenuItem
             // 
             this.求和ToolStripMenuItem.Name = "求和ToolStripMenuItem";
-            this.求和ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.求和ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.求和ToolStripMenuItem.Text = "求和";
             this.求和ToolStripMenuItem.Click += new System.EventHandler(this.求和ToolStripMenuItem_Click);
             // 
             // 裁剪ToolStripMenuItem
             // 
             this.裁剪ToolStripMenuItem.Name = "裁剪ToolStripMenuItem";
-            this.裁剪ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.裁剪ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.裁剪ToolStripMenuItem.Text = "擦除";
             this.裁剪ToolStripMenuItem.Click += new System.EventHandler(this.裁剪ToolStripMenuItem_Click);
             // 
             // 异或ToolStripMenuItem
             // 
             this.异或ToolStripMenuItem.Name = "异或ToolStripMenuItem";
-            this.异或ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.异或ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
             this.异或ToolStripMenuItem.Text = "异或";
             this.异或ToolStripMenuItem.Click += new System.EventHandler(this.异或ToolStripMenuItem_Click);
             // 
@@ -773,12 +729,20 @@
             this.axToolbarControl1.Size = new System.Drawing.Size(923, 28);
             this.axToolbarControl1.TabIndex = 1;
             // 
-            // 保存文档ToolStripMenuItem
+            // 显示ToolStripMenuItem
             // 
-            this.保存文档ToolStripMenuItem.Name = "保存文档ToolStripMenuItem";
-            this.保存文档ToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
-            this.保存文档ToolStripMenuItem.Text = "保存文档";
-            this.保存文档ToolStripMenuItem.Click += new System.EventHandler(this.保存文档ToolStripMenuItem_Click);
+            this.显示ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.符号化ToolStripMenuItem1});
+            this.显示ToolStripMenuItem.Name = "显示ToolStripMenuItem";
+            this.显示ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
+            this.显示ToolStripMenuItem.Text = "显示";
+            // 
+            // 符号化ToolStripMenuItem1
+            // 
+            this.符号化ToolStripMenuItem1.Name = "符号化ToolStripMenuItem1";
+            this.符号化ToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
+            this.符号化ToolStripMenuItem1.Text = "符号化";
+            this.符号化ToolStripMenuItem1.Click += new System.EventHandler(this.符号化ToolStripMenuItem1_Click);
             // 
             // Form1
             // 
@@ -882,12 +846,6 @@
         private System.Windows.Forms.ToolStripMenuItem 空间查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 邻接多边形查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 属性查询ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 符号化ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 点密度符号化ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 分级着色ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 唯一值着色ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 质量图着色ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 依比例符号着色ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 空间数据管理ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开个人地理数据库ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 获取要素类ToolStripMenuItem;
@@ -905,6 +863,8 @@
         private System.Windows.Forms.ToolStripMenuItem 裁剪ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 异或ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存文档ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 显示ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 符号化ToolStripMenuItem1;
     }
 }
 

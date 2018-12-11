@@ -12,6 +12,7 @@ namespace ArcGISEngineApplication
         [STAThread]
         static void Main()
         {
+            ESRI.ArcGIS.RuntimeManager.Bind(ESRI.ArcGIS.ProductCode.Desktop);
             ESRI.ArcGIS.RuntimeManager.Bind(ESRI.ArcGIS.ProductCode.EngineOrDesktop);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
