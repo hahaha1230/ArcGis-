@@ -1,0 +1,93 @@
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#Code2010\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+D:\ceshi\C#Code2010\ArcGisSecondaryDevelopment\ArcGISEngineApplication\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+C:\Users\give a me\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+D:\guojiaFile\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputText.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputMapName.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.SelectByAttribute.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputMapName.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputText.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.SelectByAttribute.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.NearPolygon.resources
+C:\Users\佳佳\Desktop\ArcGISEngineApplication (8)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.SlectByProperty.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe.config
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csprojResolveAssemblyReference.cache
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputMapName.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form1.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Form2.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.FormMeasureResult.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.InputText.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.NearPolygon.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Properties.Resources.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.SelectByAttribute.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.SlectByProperty.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.csproj.GenerateResource.Cache
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.exe
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\bin\Debug\ArcGISEngineApplication.pdb
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.ContainsQuery.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.BufferSettings.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.NewFeatureClass.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Intersection.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.UnionOverlay.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Symbolization.resources
