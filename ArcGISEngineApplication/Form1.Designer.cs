@@ -62,7 +62,6 @@
             this.创建要素类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除要素类ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.空间分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.相交运算ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.包含统计ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.缓冲分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.叠加分析ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,8 +99,10 @@
             this.statusStrip3 = new System.Windows.Forms.StatusStrip();
             this.axToolbarControl1 = new ESRI.ArcGIS.Controls.AxToolbarControl();
             this.pageSetupDialog1 = new System.Windows.Forms.PageSetupDialog();
-            this.显示ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.符号化ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.符号化ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导出地图ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip3 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
             this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -124,6 +125,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).BeginInit();
+            this.contextMenuStrip3.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -135,11 +137,10 @@
             this.要素选择ToolStripMenuItem,
             this.空间查询ToolStripMenuItem,
             this.空间数据管理ToolStripMenuItem,
-            this.空间分析ToolStripMenuItem,
-            this.显示ToolStripMenuItem});
+            this.空间分析ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(923, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(904, 28);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -149,7 +150,8 @@
             this.地图加载ToolStripMenuItem,
             this.结束ToolStripMenuItem,
             this.加载栅格文件ToolStripMenuItem,
-            this.保存文档ToolStripMenuItem});
+            this.保存文档ToolStripMenuItem,
+            this.导出地图ToolStripMenuItem});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
             this.文件ToolStripMenuItem.Text = "文件";
@@ -194,14 +196,14 @@
             // 距离量测ToolStripMenuItem
             // 
             this.距离量测ToolStripMenuItem.Name = "距离量测ToolStripMenuItem";
-            this.距离量测ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.距离量测ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.距离量测ToolStripMenuItem.Text = "距离量测";
             this.距离量测ToolStripMenuItem.Click += new System.EventHandler(this.距离量测ToolStripMenuItem_Click);
             // 
             // 面积量测ToolStripMenuItem
             // 
             this.面积量测ToolStripMenuItem.Name = "面积量测ToolStripMenuItem";
-            this.面积量测ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.面积量测ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.面积量测ToolStripMenuItem.Text = "面积量测";
             this.面积量测ToolStripMenuItem.Click += new System.EventHandler(this.面积量测ToolStripMenuItem_Click);
             // 
@@ -215,64 +217,66 @@
             this.指北针ToolStripMenuItem,
             this.图例ToolStripMenuItem,
             this.添加文字ToolStripMenuItem,
-            this.添加图名ToolStripMenuItem});
+            this.添加图名ToolStripMenuItem,
+            this.符号化ToolStripMenuItem});
             this.添加ToolStripMenuItem.Name = "添加ToolStripMenuItem";
             this.添加ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            this.添加ToolStripMenuItem.Text = "添加";
+            this.添加ToolStripMenuItem.Text = "显示";
+            this.添加ToolStripMenuItem.Click += new System.EventHandler(this.添加ToolStripMenuItem_Click);
             // 
             // 添加点ToolStripMenuItem
             // 
             this.添加点ToolStripMenuItem.Name = "添加点ToolStripMenuItem";
-            this.添加点ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.添加点ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
             this.添加点ToolStripMenuItem.Text = "添加点";
             this.添加点ToolStripMenuItem.Click += new System.EventHandler(this.添加点ToolStripMenuItem_Click);
             // 
             // 添加线ToolStripMenuItem
             // 
             this.添加线ToolStripMenuItem.Name = "添加线ToolStripMenuItem";
-            this.添加线ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.添加线ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
             this.添加线ToolStripMenuItem.Text = "添加线";
             this.添加线ToolStripMenuItem.Click += new System.EventHandler(this.添加线ToolStripMenuItem_Click);
             // 
             // 添加面ToolStripMenuItem
             // 
             this.添加面ToolStripMenuItem.Name = "添加面ToolStripMenuItem";
-            this.添加面ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.添加面ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
             this.添加面ToolStripMenuItem.Text = "添加面";
             this.添加面ToolStripMenuItem.Click += new System.EventHandler(this.添加面ToolStripMenuItem_Click);
             // 
             // 比例尺ToolStripMenuItem
             // 
             this.比例尺ToolStripMenuItem.Name = "比例尺ToolStripMenuItem";
-            this.比例尺ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.比例尺ToolStripMenuItem.Text = "比例尺";
+            this.比例尺ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.比例尺ToolStripMenuItem.Text = "添加比例尺";
             this.比例尺ToolStripMenuItem.Click += new System.EventHandler(this.比例尺ToolStripMenuItem_Click);
             // 
             // 指北针ToolStripMenuItem
             // 
             this.指北针ToolStripMenuItem.Name = "指北针ToolStripMenuItem";
-            this.指北针ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.指北针ToolStripMenuItem.Text = "指北针";
+            this.指北针ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.指北针ToolStripMenuItem.Text = "添加指北针";
             this.指北针ToolStripMenuItem.Click += new System.EventHandler(this.指北针ToolStripMenuItem_Click);
             // 
             // 图例ToolStripMenuItem
             // 
             this.图例ToolStripMenuItem.Name = "图例ToolStripMenuItem";
-            this.图例ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.图例ToolStripMenuItem.Text = "图例";
+            this.图例ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.图例ToolStripMenuItem.Text = "添加图例";
             this.图例ToolStripMenuItem.Click += new System.EventHandler(this.图例ToolStripMenuItem_Click);
             // 
             // 添加文字ToolStripMenuItem
             // 
             this.添加文字ToolStripMenuItem.Name = "添加文字ToolStripMenuItem";
-            this.添加文字ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.添加文字ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
             this.添加文字ToolStripMenuItem.Text = "添加文字";
             this.添加文字ToolStripMenuItem.Click += new System.EventHandler(this.添加文字ToolStripMenuItem_Click);
             // 
             // 添加图名ToolStripMenuItem
             // 
             this.添加图名ToolStripMenuItem.Name = "添加图名ToolStripMenuItem";
-            this.添加图名ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.添加图名ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
             this.添加图名ToolStripMenuItem.Text = "添加图名";
             this.添加图名ToolStripMenuItem.Click += new System.EventHandler(this.添加图名ToolStripMenuItem_Click);
             // 
@@ -381,7 +385,6 @@
             // 空间分析ToolStripMenuItem
             // 
             this.空间分析ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.相交运算ToolStripMenuItem,
             this.包含统计ToolStripMenuItem,
             this.缓冲分析ToolStripMenuItem,
             this.叠加分析ToolStripMenuItem});
@@ -389,24 +392,17 @@
             this.空间分析ToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
             this.空间分析ToolStripMenuItem.Text = "空间分析";
             // 
-            // 相交运算ToolStripMenuItem
-            // 
-            this.相交运算ToolStripMenuItem.Name = "相交运算ToolStripMenuItem";
-            this.相交运算ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
-            this.相交运算ToolStripMenuItem.Text = "相交运算";
-            this.相交运算ToolStripMenuItem.Click += new System.EventHandler(this.相交运算ToolStripMenuItem_Click);
-            // 
             // 包含统计ToolStripMenuItem
             // 
             this.包含统计ToolStripMenuItem.Name = "包含统计ToolStripMenuItem";
-            this.包含统计ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.包含统计ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.包含统计ToolStripMenuItem.Text = "包含统计";
             this.包含统计ToolStripMenuItem.Click += new System.EventHandler(this.包含统计ToolStripMenuItem_Click);
             // 
             // 缓冲分析ToolStripMenuItem
             // 
             this.缓冲分析ToolStripMenuItem.Name = "缓冲分析ToolStripMenuItem";
-            this.缓冲分析ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.缓冲分析ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.缓冲分析ToolStripMenuItem.Text = "缓冲分析";
             this.缓冲分析ToolStripMenuItem.Click += new System.EventHandler(this.缓冲分析ToolStripMenuItem_Click);
             // 
@@ -418,34 +414,34 @@
             this.裁剪ToolStripMenuItem,
             this.异或ToolStripMenuItem});
             this.叠加分析ToolStripMenuItem.Name = "叠加分析ToolStripMenuItem";
-            this.叠加分析ToolStripMenuItem.Size = new System.Drawing.Size(138, 24);
+            this.叠加分析ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.叠加分析ToolStripMenuItem.Text = "叠加分析";
             // 
             // 求交ToolStripMenuItem
             // 
             this.求交ToolStripMenuItem.Name = "求交ToolStripMenuItem";
-            this.求交ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.求交ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.求交ToolStripMenuItem.Text = "求交";
             this.求交ToolStripMenuItem.Click += new System.EventHandler(this.求交ToolStripMenuItem_Click);
             // 
             // 求和ToolStripMenuItem
             // 
             this.求和ToolStripMenuItem.Name = "求和ToolStripMenuItem";
-            this.求和ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.求和ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.求和ToolStripMenuItem.Text = "求和";
             this.求和ToolStripMenuItem.Click += new System.EventHandler(this.求和ToolStripMenuItem_Click);
             // 
             // 裁剪ToolStripMenuItem
             // 
             this.裁剪ToolStripMenuItem.Name = "裁剪ToolStripMenuItem";
-            this.裁剪ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.裁剪ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.裁剪ToolStripMenuItem.Text = "擦除";
             this.裁剪ToolStripMenuItem.Click += new System.EventHandler(this.裁剪ToolStripMenuItem_Click);
             // 
             // 异或ToolStripMenuItem
             // 
             this.异或ToolStripMenuItem.Name = "异或ToolStripMenuItem";
-            this.异或ToolStripMenuItem.Size = new System.Drawing.Size(108, 24);
+            this.异或ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
             this.异或ToolStripMenuItem.Text = "异或";
             this.异或ToolStripMenuItem.Click += new System.EventHandler(this.异或ToolStripMenuItem_Click);
             // 
@@ -453,9 +449,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 605);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 500);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(923, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(904, 22);
             this.statusStrip1.TabIndex = 2;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -470,11 +466,11 @@
             // toolStripContainer1.ContentPanel
             // 
             this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainer1);
-            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(923, 524);
+            this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(904, 419);
             this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.toolStripContainer1.Location = new System.Drawing.Point(0, 56);
             this.toolStripContainer1.Name = "toolStripContainer1";
-            this.toolStripContainer1.Size = new System.Drawing.Size(923, 549);
+            this.toolStripContainer1.Size = new System.Drawing.Size(904, 444);
             this.toolStripContainer1.TabIndex = 3;
             this.toolStripContainer1.Text = "toolStripContainer1";
             // 
@@ -491,8 +487,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer1.Size = new System.Drawing.Size(923, 524);
-            this.splitContainer1.SplitterDistance = 179;
+            this.splitContainer1.Size = new System.Drawing.Size(904, 419);
+            this.splitContainer1.SplitterDistance = 175;
             this.splitContainer1.TabIndex = 0;
             // 
             // splitContainer2
@@ -509,8 +505,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.axMapControl2);
-            this.splitContainer2.Size = new System.Drawing.Size(179, 524);
-            this.splitContainer2.SplitterDistance = 130;
+            this.splitContainer2.Size = new System.Drawing.Size(175, 419);
+            this.splitContainer2.SplitterDistance = 103;
             this.splitContainer2.TabIndex = 0;
             // 
             // axTOCControl1
@@ -520,7 +516,7 @@
             this.axTOCControl1.Location = new System.Drawing.Point(0, 0);
             this.axTOCControl1.Name = "axTOCControl1";
             this.axTOCControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axTOCControl1.OcxState")));
-            this.axTOCControl1.Size = new System.Drawing.Size(179, 130);
+            this.axTOCControl1.Size = new System.Drawing.Size(175, 103);
             this.axTOCControl1.TabIndex = 0;
             this.axTOCControl1.OnMouseDown += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseDownEventHandler(this.axTOCControl1_OnMouseDown);
             this.axTOCControl1.OnMouseUp += new ESRI.ArcGIS.Controls.ITOCControlEvents_Ax_OnMouseUpEventHandler(this.axTOCControl1_OnMouseUp);
@@ -578,7 +574,7 @@
             this.axMapControl2.Location = new System.Drawing.Point(0, 0);
             this.axMapControl2.Name = "axMapControl2";
             this.axMapControl2.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl2.OcxState")));
-            this.axMapControl2.Size = new System.Drawing.Size(179, 390);
+            this.axMapControl2.Size = new System.Drawing.Size(175, 312);
             this.axMapControl2.TabIndex = 0;
             this.axMapControl2.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl2_OnMouseDown);
             this.axMapControl2.OnExtentUpdated += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnExtentUpdatedEventHandler(this.axMapControl2_OnExtentUpdated);
@@ -591,7 +587,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(740, 524);
+            this.tabControl1.Size = new System.Drawing.Size(725, 419);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage1
@@ -602,7 +598,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(732, 495);
+            this.tabPage1.Size = new System.Drawing.Size(717, 390);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "地图视图";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -613,9 +609,9 @@
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4});
-            this.statusStrip2.Location = new System.Drawing.Point(3, 467);
+            this.statusStrip2.Location = new System.Drawing.Point(3, 362);
             this.statusStrip2.Name = "statusStrip2";
-            this.statusStrip2.Size = new System.Drawing.Size(726, 25);
+            this.statusStrip2.Size = new System.Drawing.Size(711, 25);
             this.statusStrip2.TabIndex = 2;
             this.statusStrip2.Text = "statusStrip2";
             // 
@@ -653,7 +649,7 @@
             this.axMapControl1.Location = new System.Drawing.Point(3, 3);
             this.axMapControl1.Name = "axMapControl1";
             this.axMapControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axMapControl1.OcxState")));
-            this.axMapControl1.Size = new System.Drawing.Size(726, 489);
+            this.axMapControl1.Size = new System.Drawing.Size(711, 384);
             this.axMapControl1.TabIndex = 0;
             this.axMapControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseDownEventHandler(this.axMapControl1_OnMouseDown);
             this.axMapControl1.OnMouseMove += new ESRI.ArcGIS.Controls.IMapControlEvents2_Ax_OnMouseMoveEventHandler(this.axMapControl1_OnMouseMove);
@@ -697,7 +693,7 @@
             this.tabPage2.Controls.Add(this.axPageLayoutControl1);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(732, 495);
+            this.tabPage2.Size = new System.Drawing.Size(717, 390);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "布局视图";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -708,15 +704,15 @@
             this.axPageLayoutControl1.Location = new System.Drawing.Point(0, 0);
             this.axPageLayoutControl1.Name = "axPageLayoutControl1";
             this.axPageLayoutControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axPageLayoutControl1.OcxState")));
-            this.axPageLayoutControl1.Size = new System.Drawing.Size(732, 495);
+            this.axPageLayoutControl1.Size = new System.Drawing.Size(717, 390);
             this.axPageLayoutControl1.TabIndex = 0;
             this.axPageLayoutControl1.OnMouseDown += new ESRI.ArcGIS.Controls.IPageLayoutControlEvents_Ax_OnMouseDownEventHandler(this.axPageLayoutControl1_OnMouseDown);
             // 
             // statusStrip3
             // 
-            this.statusStrip3.Location = new System.Drawing.Point(0, 583);
+            this.statusStrip3.Location = new System.Drawing.Point(0, 478);
             this.statusStrip3.Name = "statusStrip3";
-            this.statusStrip3.Size = new System.Drawing.Size(923, 22);
+            this.statusStrip3.Size = new System.Drawing.Size(904, 22);
             this.statusStrip3.TabIndex = 5;
             this.statusStrip3.Text = "statusStrip3";
             // 
@@ -726,29 +722,42 @@
             this.axToolbarControl1.Location = new System.Drawing.Point(0, 28);
             this.axToolbarControl1.Name = "axToolbarControl1";
             this.axToolbarControl1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axToolbarControl1.OcxState")));
-            this.axToolbarControl1.Size = new System.Drawing.Size(923, 28);
+            this.axToolbarControl1.Size = new System.Drawing.Size(904, 28);
             this.axToolbarControl1.TabIndex = 1;
             // 
-            // 显示ToolStripMenuItem
+            // 符号化ToolStripMenuItem
             // 
-            this.显示ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.符号化ToolStripMenuItem1});
-            this.显示ToolStripMenuItem.Name = "显示ToolStripMenuItem";
-            this.显示ToolStripMenuItem.Size = new System.Drawing.Size(51, 24);
-            this.显示ToolStripMenuItem.Text = "显示";
+            this.符号化ToolStripMenuItem.Name = "符号化ToolStripMenuItem";
+            this.符号化ToolStripMenuItem.Size = new System.Drawing.Size(153, 24);
+            this.符号化ToolStripMenuItem.Text = "符号化";
+            this.符号化ToolStripMenuItem.Click += new System.EventHandler(this.符号化ToolStripMenuItem_Click);
             // 
-            // 符号化ToolStripMenuItem1
+            // 导出地图ToolStripMenuItem
             // 
-            this.符号化ToolStripMenuItem1.Name = "符号化ToolStripMenuItem1";
-            this.符号化ToolStripMenuItem1.Size = new System.Drawing.Size(152, 24);
-            this.符号化ToolStripMenuItem1.Text = "符号化";
-            this.符号化ToolStripMenuItem1.Click += new System.EventHandler(this.符号化ToolStripMenuItem1_Click);
+            this.导出地图ToolStripMenuItem.Name = "导出地图ToolStripMenuItem";
+            this.导出地图ToolStripMenuItem.Size = new System.Drawing.Size(170, 24);
+            this.导出地图ToolStripMenuItem.Text = "导出";
+            this.导出地图ToolStripMenuItem.Click += new System.EventHandler(this.导出地图ToolStripMenuItem_Click);
+            // 
+            // contextMenuStrip3
+            // 
+            this.contextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.退出ToolStripMenuItem});
+            this.contextMenuStrip3.Name = "contextMenuStrip3";
+            this.contextMenuStrip3.Size = new System.Drawing.Size(153, 50);
+            // 
+            // 退出ToolStripMenuItem
+            // 
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 24);
+            this.退出ToolStripMenuItem.Text = "退出";
+            this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(923, 627);
+            this.ClientSize = new System.Drawing.Size(904, 522);
             this.Controls.Add(this.statusStrip3);
             this.Controls.Add(this.toolStripContainer1);
             this.Controls.Add(this.statusStrip1);
@@ -785,6 +794,7 @@
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axPageLayoutControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.axToolbarControl1)).EndInit();
+            this.contextMenuStrip3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -854,7 +864,6 @@
         public  ESRI.ArcGIS.Controls.AxMapControl axMapControl1;
         private System.Windows.Forms.ToolStripMenuItem 点选ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 空间分析ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 相交运算ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 包含统计ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 缓冲分析ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 叠加分析ToolStripMenuItem;
@@ -863,8 +872,10 @@
         private System.Windows.Forms.ToolStripMenuItem 裁剪ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 异或ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 保存文档ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 显示ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 符号化ToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem 符号化ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导出地图ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip3;
+        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
     }
 }
 

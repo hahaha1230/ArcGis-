@@ -153,11 +153,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddCompass.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddCompass.Designer.cs">
+      <DependentUpon>AddCompass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddScaleBar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddScaleBar.Designer.cs">
+      <DependentUpon>AddScaleBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="BufferSettings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BufferSettings.Designer.cs">
       <DependentUpon>BufferSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CeShi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CeShi.Designer.cs">
+      <DependentUpon>CeShi.cs</DependentUpon>
     </Compile>
     <Compile Include="ContainsQuery.cs">
       <SubType>Form</SubType>
@@ -196,11 +214,11 @@
     <Compile Include="InputText.Designer.cs">
       <DependentUpon>InputText.cs</DependentUpon>
     </Compile>
-    <Compile Include="Intersection.cs">
+    <Compile Include="OverlayAnalysis.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Intersection.Designer.cs">
-      <DependentUpon>Intersection.cs</DependentUpon>
+    <Compile Include="OverlayAnalysis.Designer.cs">
+      <DependentUpon>OverlayAnalysis.cs</DependentUpon>
     </Compile>
     <Compile Include="NearPolygon.cs">
       <SubType>Form</SubType>
@@ -213,6 +231,12 @@
     </Compile>
     <Compile Include="NewFeatureClass.Designer.cs">
       <DependentUpon>NewFeatureClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewField.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewField.Designer.cs">
+      <DependentUpon>NewField.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -240,8 +264,17 @@
     <Compile Include="UnionOverlay.Designer.cs">
       <DependentUpon>UnionOverlay.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddCompass.resx">
+      <DependentUpon>AddCompass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddScaleBar.resx">
+      <DependentUpon>AddScaleBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BufferSettings.resx">
       <DependentUpon>BufferSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CeShi.resx">
+      <DependentUpon>CeShi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ContainsQuery.resx">
       <DependentUpon>ContainsQuery.cs</DependentUpon>
@@ -261,14 +294,17 @@
     <EmbeddedResource Include="InputText.resx">
       <DependentUpon>InputText.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Intersection.resx">
-      <DependentUpon>Intersection.cs</DependentUpon>
+    <EmbeddedResource Include="OverlayAnalysis.resx">
+      <DependentUpon>OverlayAnalysis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NearPolygon.resx">
       <DependentUpon>NearPolygon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="NewFeatureClass.resx">
       <DependentUpon>NewFeatureClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewField.resx">
+      <DependentUpon>NewField.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

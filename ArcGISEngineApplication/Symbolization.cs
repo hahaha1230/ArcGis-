@@ -10,6 +10,7 @@ using ESRI.ArcGIS.Carto;
 using ESRI.ArcGIS.Controls;
 using ESRI.ArcGIS.Display;
 using ESRI.ArcGIS.esriSystem;
+using ESRI.ArcGIS.Framework;
 using ESRI.ArcGIS.Geodatabase;
 using ESRI.ArcGIS.Geometry;
 
@@ -24,16 +25,18 @@ namespace ArcGISEngineApplication
         private string symbolizationWay = null;
         private IMap pMap;
         private int type;
+        private AxTOCControl axToccontrol1;
         public Symbolization()
         {
             InitializeComponent();
         }
 
-        public Symbolization(AxMapControl axMapControl)
+        public Symbolization(AxMapControl axMapControl,AxTOCControl axToccontrol)
         {
             InitializeComponent();
             axMapControl1 = axMapControl;
             pMap = axMapControl1.Map;
+            axToccontrol1 = axToccontrol;
         }
  
         private void Symbolization_Load(object sender, EventArgs e)
@@ -49,7 +52,9 @@ namespace ArcGISEngineApplication
             }
         }
 
-       
+         public delegate void UniqueValueRenderEventHandler(string sFeatClsName, string sFieldName);
+        public event UniqueValueRenderEventHandler UniqueValueRender = null;
+        
         private void button1_Click(object sender, EventArgs e)
         {
             if (cbLayer.Text == null||symbolizationWay==null)
@@ -75,6 +80,7 @@ namespace ArcGISEngineApplication
                 case "分级着色":
                     if (type == CURRENT_LAYER_POLYGON)
                     {
+                      
                         polygonClassificationDye(pLayer);
                     }
                     else if (type == CURRENT_LAYER_LINE)
@@ -102,13 +108,51 @@ namespace ArcGISEngineApplication
                         polygonQualityDye(pLayer);
                     }
                     break;
+                case"点密度":
+                    try
+                    {
+                        int intRendererDensity = int.Parse(RendererDensity.Text);
+                        DotDensity(pLayer as IFeatureLayer, cbField1.Text, intRendererDensity);
+                    }
+                    catch { 
+                    }
+                    break;
                 default:
                     break;
                    
             }
+            axToccontrol1.Update();
             
         }
-      
+        private void DotDensity(IFeatureLayer pFeatLyr, string sFieldName, int intRendererDensity)
+        {
+                IGeoFeatureLayer pGeoFeatureLayer = pFeatLyr as IGeoFeatureLayer;
+                IDotDensityRenderer pDotDensityRenderer = new DotDensityRendererClass();
+                IRendererFields pRendererFields = pDotDensityRenderer as IRendererFields;
+                //设置渲染字段               
+                pRendererFields.AddField(sFieldName);
+                //设置填充背景色
+                IDotDensityFillSymbol pDotDensityFillSymbol = new DotDensityFillSymbolClass();
+                pDotDensityFillSymbol.DotSize = 3;
+                pDotDensityFillSymbol.BackgroundColor = GetRgbColor(0, 255, 0);
+                //设置渲染符号
+                ISymbolArray pSymbolArray = pDotDensityFillSymbol as ISymbolArray;
+                ISimpleMarkerSymbol pSimpleMarkerSymbol = new SimpleMarkerSymbolClass();
+                pSimpleMarkerSymbol.Style = esriSimpleMarkerStyle.esriSMSCircle;
+                pSimpleMarkerSymbol.Color = GetRgbColor(0, 0, 255);
+                pSymbolArray.AddSymbol(pSimpleMarkerSymbol as ISymbol);
+                pDotDensityRenderer.DotDensitySymbol = pDotDensityFillSymbol;
+                //设置渲染密度，即每个点符号所代表的数值大小
+                pDotDensityRenderer.DotValue = intRendererDensity;
+                //创建图例
+                pDotDensityRenderer.CreateLegend();
+                pGeoFeatureLayer.Renderer = pDotDensityRenderer as IFeatureRenderer;
+                axMapControl1.Refresh();
+                axMapControl1.Update();
+                Close();
+               
+          
+        }
        
         private void lineSimpleDye(ILayer pLayer) { 
              try
@@ -118,7 +162,7 @@ namespace ArcGISEngineApplication
                 ISimpleLineSymbol simpleLineSymbol = new SimpleLineSymbolClass();
                 simpleLineSymbol.Width = 0;//定义线的宽度 
                 simpleLineSymbol.Style = esriSimpleLineStyle.esriSLSInsideFrame; //定义线的样式                               
-                simpleLineSymbol.Color = GetRgbColor(255, 100, 0);//定义线的颜色
+                simpleLineSymbol.Color =pColor;//定义线的颜色
                 ISymbol symbol = simpleLineSymbol as ISymbol;
                 //更改符号样式
                 ISimpleRenderer pSimpleRenderer = new SimpleRendererClass();
@@ -146,22 +190,19 @@ namespace ArcGISEngineApplication
 
         private void simpleDye(ILayer pLayer)
         {
-            //这里以面状图层为例
+            if (pColor == null)
+            {
+                MessageBox.Show("请先选择颜色");
+                return;
+            }
             IGeoFeatureLayer pGeoFeatureLayer =pLayer as IGeoFeatureLayer;
             //新建一个填充符号
             IFillSymbol pSimpleFills;
             pSimpleFills = new SimpleFillSymbolClass();
-            IRgbColor color = new RgbColorClass();
-            color.Red = 120;
-            color.Green = 110;
-            color.Blue = 0;
-            pSimpleFills.Color = color;
+            pSimpleFills.Color = pColor;
             //新建线符号
             ILineSymbol pLineSymbol = new SimpleLineSymbolClass();
-            color.Red = 255;
-            color.Green = 0;
-            color.Blue = 0;
-            pLineSymbol.Color = color;
+            pLineSymbol.Color = pColor;
             pLineSymbol.Width = 3;
             //线符号作为该填充符号的外边缘
             pSimpleFills.Outline = pLineSymbol;
@@ -206,8 +247,17 @@ namespace ArcGISEngineApplication
             ISimpleFillSymbol pSimpleFillS;
             int IbreakIndex;
             string strPopFiled = cbField1.Text;
-            int numDesiredClasses = int.Parse(textBox1.Text.ToString());
-
+            int numDesiredClasses;
+            try
+            { 
+                numDesiredClasses = int.Parse(textBox1.Text.ToString());
+            }
+            catch
+            {
+                MessageBox.Show("请输入分级个数");
+                return;
+            }
+        
             IMap pMap = axMapControl1.Map;
             pMap.ReferenceScale = 0;
             pGeoFeatureLayer = pLayer as IGeoFeatureLayer;
@@ -544,15 +594,14 @@ namespace ArcGISEngineApplication
 
         private void 分级着色ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            textBox1.Enabled = true;
-            cbField2.Enabled = false;
-            symbolizationWay = "分级着色";
+           
         }
 
         private void 简单着色ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             cbField2.Enabled = false;
             textBox1.Enabled = false;
+            RendererDensity.Enabled = false;
             symbolizationWay = "简单着色";
         }
 
@@ -560,6 +609,7 @@ namespace ArcGISEngineApplication
         {
             cbField2.Enabled = false;
             textBox1.Enabled = false;
+            RendererDensity.Enabled = false;
             symbolizationWay = "唯一值着色";
         }
 
@@ -567,6 +617,7 @@ namespace ArcGISEngineApplication
         {
             textBox1.Enabled = false;
             cbField2.Enabled = true;
+            RendererDensity.Enabled = false;
             symbolizationWay = "质量图着色";
         }
 
@@ -590,6 +641,41 @@ namespace ArcGISEngineApplication
                 }
              
             }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private IColor pColor = new RgbColor();
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //IColorSelector pSelector = new ColorSelectorClass();
+            IColorBrowser pColorBrowser = new ColorBrowser();
+            pColorBrowser.Color = pColor;
+            if (pColorBrowser.DoModal(0))
+            {
+                pColor = pColorBrowser.Color;
+
+            }
+           // Color color = Color.
+          //  textBox2.BackColor = (System.Drawing.Color)pColor;
+        }
+
+        private void 分级色彩ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Enabled = true;
+            cbField2.Enabled = false;
+            RendererDensity.Enabled = false;
+            symbolizationWay = "分级着色";
+        }
+
+        private void 点密度ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            textBox1.Enabled = false;
+            RendererDensity.Enabled = true;
+            cbField2.Enabled = false;
+            symbolizationWay = "点密度";
         }
         
     }

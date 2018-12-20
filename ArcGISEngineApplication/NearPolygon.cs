@@ -128,7 +128,7 @@ namespace ArcGISEngineApplication
             IFeature feature = null;
             while ((feature = featureCursor.NextFeature()) != null)
             {
-                Form2 form2 = new Form2(currentLayer,pMap);
+                Form2 form2 = new Form2(currentLayer,axMapControl1);
                 form2.Show();
             }
         }

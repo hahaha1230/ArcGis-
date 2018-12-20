@@ -16,7 +16,7 @@ using ESRI.ArcGIS.Geoprocessor;
 
 namespace ArcGISEngineApplication
 {
-    public partial class Intersection : Form
+    public partial class OverlayAnalysis : Form
     {
         private string strOutputPath;
         private string outputFullPath;
@@ -26,12 +26,17 @@ namespace ArcGISEngineApplication
         private string operationType;
      
 
-        public Intersection()
+        public OverlayAnalysis()
         {
-            InitializeComponent();
+           // InitializeComponent();
         }
-        public Intersection(AxMapControl axMapControl,string cmd)
+        public OverlayAnalysis(AxMapControl axMapControl,string cmd)
         {
+            IAoInitialize aoInitialize = new AoInitialize();
+
+            esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
+
+            licenseStatus = aoInitialize.Initialize(esriLicenseProductCode.esriLicenseProductCodeAdvanced);
             InitializeComponent();
             axMapControl1 = axMapControl;
             pMap = axMapControl1.Map;
@@ -41,10 +46,25 @@ namespace ArcGISEngineApplication
         private void Intersection_Load(object sender, EventArgs e)
         {
 
+            switch (operationType)
+            {
+                case "intersection":
+                    this.Text = "求交";
+                    break;
+                case "union":
+                    this.Text = "求和";
+                    break;
+                case "clip":
+                    this.Text = "擦除";
+                    break;
+                case "xor":
+                    this.Text = "异或";
+                    break;
+            }
             IAoInitialize m_AoInitialize = new AoInitializeClass();
-esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
+            esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
 
-        licenseStatus = m_AoInitialize.Initialize(esriLicenseProductCode.esriLicenseProductCodeAdvanced);
+          licenseStatus = m_AoInitialize.Initialize(esriLicenseProductCode.esriLicenseProductCodeAdvanced);
 
             for (int i = 0; i < pMap.LayerCount; i++)
             {
@@ -118,7 +138,7 @@ esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
             
           
            
-
+            
             try
             {
                 //将结果添加到当前地图中
@@ -156,17 +176,17 @@ esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
         #region 擦除操作   
         private IGeoProcessorResult EraseOverlay(Geoprocessor gp)
         {
-          //  ESRI.ArcGIS.AnalysisTools.Erase erase = new ESRI.ArcGIS.AnalysisTools.Erase();
-          //  IFeatureLayer inputLayer = GetFeatureLayer(cbInputLayer.Text);
-          //  erase.in_features = inputLayer;
-          //  IFeatureLayer eraseLayer = GetFeatureLayer(cbOverLayLayer.Text);
-          ////  string aaa = System.IO.Path.Combine(strOutputPath, "Erase.shp");
-          //  erase.out_feature_class =outputFullPath;
-          //  double tolerance=0.1;
-          //  erase.cluster_tolerance =tolerance;
-          //  //erase.cluster_tolerance = tolerance;
+            //ESRI.ArcGIS.AnalysisTools.Erase erase = new ESRI.ArcGIS.AnalysisTools.Erase();
+            //IFeatureLayer inputLayer = GetFeatureLayer(cbInputLayer.Text);
+            //erase.in_features = inputLayer;
+            //IFeatureLayer eraseLayer = GetFeatureLayer(cbOverLayLayer.Text);
+            ////  string aaa = System.IO.Path.Combine(strOutputPath, "Erase.shp");
+            //erase.out_feature_class = outputFullPath;
+            //double tolerance = 0.1;
+            //erase.cluster_tolerance = tolerance;
+            ////erase.cluster_tolerance = tolerance;
 
-          //  IGeoProcessorResult results = (IGeoProcessorResult)gp.Execute(erase, null);
+            //IGeoProcessorResult results = (IGeoProcessorResult)gp.Execute(erase, null);
 
             IGpValueTableObject vtobject = new GpValueTableObjectClass();
             vtobject.SetColumns(1);
@@ -178,7 +198,7 @@ esriLicenseStatus licenseStatus = esriLicenseStatus.esriLicenseUnavailable;
             IVariantArray pVarArray = new VarArrayClass();
             pVarArray.Add(vtobject);
 
-           
+
             pVarArray.Add(outputFullPath);
             double tolerance = 0.1;
             pVarArray.Add(tolerance);

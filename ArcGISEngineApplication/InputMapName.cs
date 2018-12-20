@@ -55,26 +55,6 @@ namespace ArcGISEngineApplication
 
             IColor pColor = new RgbColor();
             pColor.RGB = 255;
-            //IColorSelector pSelector = new ColorSelectorClass();
-            IColorBrowser pColorBrowser = new ColorBrowser();
-            pColorBrowser.Color = pColor;
-            if (pColorBrowser.DoModal(0))
-            {
-                pColor = pColorBrowser.Color;
-                Form1.pColor = pColor;
-            }
-
-
-            /*IColor pColor = new RgbColor();
-            pColor.RGB = 255;
-            IColorSelector pSelector = new ColorSelectorClass();
-            pSelector.Color = pColor;
-            if (pSelector.DoModal(0))
-            {
-                pColor = pSelector.Color;
-                Form1.pColor = pColor;
-
-            }*/
             
         }
 

@@ -88,7 +88,7 @@ namespace ArcGISEngineApplication
                 pTable.Rows.Add(pRow);
                 pFeature = pFeatureCursor.NextFeature();
             }
-            MessageBox.Show("列为"+pTable.Columns.Count+"     ;行"+pTable.Rows.Count);
+            MessageBox.Show("一共选择了"+pTable.Rows.Count+"条数据");
             
             dataGridView1.DataSource = pTable;
            

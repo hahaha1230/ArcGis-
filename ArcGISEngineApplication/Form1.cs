@@ -40,8 +40,11 @@ namespace ArcGISEngineApplication
     {
         public Form1()
         {
+            
+
             ESRI.ArcGIS.RuntimeManager.Bind(ESRI.ArcGIS.ProductCode.Desktop);
-            InitializeComponent();
+           
+            InitializeComponent(); 
             this.axMapControl1.OnDoubleClick += new ESRI.ArcGIS.Controls.
                 IMapControlEvents2_Ax_OnDoubleClickEventHandler(this.axMapControl1_OnDoubleClick);
 
@@ -124,6 +127,7 @@ namespace ArcGISEngineApplication
             openFileDialog2.Filter = "Map Documents (*.mxd)|*.mxd";
             openFileDialog2.ShowDialog();
             string sFilePath = openFileDialog2.FileName;
+           
             if (axMapControl1.CheckMxFile(sFilePath))
             {
                 axMapControl1.MousePointer =
@@ -239,9 +243,9 @@ namespace ArcGISEngineApplication
                 switch (pMouseOperator)
                 {
                     case "drawPoint":
-                        IPoint pt;
-                        pt = axMapControl1.ToMapPoint(e.x, e.y);
-
+                       IPoint pPoint = new PointClass();
+                        pPoint.PutCoords(e.mapX, e.mapY);
+                        IMarkerElement pMarkElement=new MarkerElementClass();
                         ISimpleMarkerSymbol pMarkerSymbol = new SimpleMarkerSymbolClass();
                         pMarkerSymbol.Style = esriSimpleMarkerStyle.esriSMSX;
                         pMarkerSymbol.Color = GetRGB(200, 0, 0);
@@ -249,13 +253,16 @@ namespace ArcGISEngineApplication
                         pMarkerSymbol.Size = 5;
                         pMarkerSymbol.Outline = true;
                         pMarkerSymbol.OutlineSize = 1;
-                        IPoint pPoint = new PointClass();
-                        pPoint.PutCoords(e.mapX, e.mapY);
-                        object oMarkerSymbol = pMarkerSymbol;
-                        axMapControl1.DrawShape(pPoint, ref oMarkerSymbol);
+                        pMarkElement.Symbol = pMarkerSymbol;
+
+                       IElement pElementc = pMarkElement as IElement;
+                       pElementc.Geometry = pPoint;
+                       pGraphicsContainer = axMapControl1.Map as IGraphicsContainer;
+                       pGraphicsContainer.AddElement(pElementc, 0);
+                       pActiveView.Refresh();
+
                         break;
                     case "drawLine":
-
                         IGeometry polyline;
                         polyline = axMapControl1.TrackLine();
                         ILineElement pLineElement;
@@ -265,7 +272,7 @@ namespace ArcGISEngineApplication
                         pElement.Geometry = polyline;
                         pGraphicsContainer = axMapControl1.Map as IGraphicsContainer;
                         //pGraphicsContainer = pMap as IGraphicsContainer;
-                        pGraphicsContainer.AddElement((IElement)pLineElement, 0);
+                        pGraphicsContainer.AddElement(pElement, 0);
                         axMapControl1.ActiveView.Refresh();
                         // pActiveView.Refresh();
                         break;
@@ -479,6 +486,7 @@ namespace ArcGISEngineApplication
                         axMapControl1.Refresh(esriViewDrawPhase.esriViewGraphics, null, null);
                         pMouseOperator = "";
                         break;
+                    
                     default:
                         //改变地图控件显示范围为当前拖曳的区域
                         axMapControl1.Extent = axMapControl1.TrackRectangle();
@@ -632,13 +640,10 @@ namespace ArcGISEngineApplication
             else if (e.button == 1)
             {
                 //点击图层的符号可以进行更改
-
-              
-
                 if (mItem == esriTOCControlItem.esriTOCControlItemLegendClass)
                 {
 
-
+                    
                     ILegendClass plc = new LegendClassClass();
                     ILegendGroup plg = new LegendGroupClass();
 
@@ -658,8 +663,6 @@ namespace ArcGISEngineApplication
                     }
                     axMapControl1.ActiveView.Refresh();
                     axTOCControl1.Refresh();
-
-
                 }
             }
             axMapControl2.ActiveView.Refresh();
@@ -689,7 +692,7 @@ namespace ArcGISEngineApplication
         #region 打开属性表
         private void 属性表ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form2 FT = new Form2(player as ILayer, axMapControl1.Map);
+            Form2 FT = new Form2(player as ILayer, axMapControl1);
             FT.Show();
         }
         #endregion
@@ -904,7 +907,6 @@ namespace ArcGISEngineApplication
                     if (!first)
                         return;
                     first = false;
-                    MessageBox.Show("DoQueryIndex == 3");
                     IFeatureLayer pFeaturelayer = axMapControl1.get_Layer(getIndexByName(CURRENT_LAYER_NAME)) 
                         as IFeatureLayer;
                     ISpatialFilter sptiafilter = new SpatialFilterClass();
@@ -1082,54 +1084,62 @@ namespace ArcGISEngineApplication
         }
         #endregion
 
-
+        private IStyleGalleryItem styleGalleryItem;
         #region 添加指北针
         private void 指北针ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            IElement pElement = axPageLayoutControl1.FindElementByName("MarkerNorthArrow");
+            pMouseOperator = "addCompass"; 
+            AddCompass symbolForm = new AddCompass(esriSymbologyStyleClass.esriStyleClassNorthArrows);
+            symbolForm.Text = "选择指北针";
+            styleGalleryItem = symbolForm.GetItem(esriSymbologyStyleClass.esriStyleClassNorthArrows);
+            symbolForm.Dispose();
+           
 
-            //如果存在就先删除
-            if (pElement != null)
-            {
-                axPageLayoutControl1.ActiveView.GraphicsContainer.DeleteElement(pElement);
-            }
-            IPageLayout pPageLayout = axPageLayoutControl1.PageLayout;
-            IGraphicsContainer pGraphicsContainer = pPageLayout as IGraphicsContainer;
-            IActiveView pActiveView = pPageLayout as IActiveView;
-            UID pID = new UIDClass()
-;
-            pID.Value = "esriCore.MarkerNorthArrow";
+         
+//            IElement pElement = axPageLayoutControl1.FindElementByName("MarkerNorthArrow");
+
+//            //如果存在就先删除
+//            if (pElement != null)
+//            {
+//                axPageLayoutControl1.ActiveView.GraphicsContainer.DeleteElement(pElement);
+//            }
+//            IPageLayout pPageLayout = axPageLayoutControl1.PageLayout;
+//            IGraphicsContainer pGraphicsContainer = pPageLayout as IGraphicsContainer;
+//            IActiveView pActiveView = pPageLayout as IActiveView;
+//            UID pID = new UIDClass()
+//;
+//            pID.Value = "esriCore.MarkerNorthArrow";
 
 
-            IMapFrame pMapFrame = pGraphicsContainer.FindFrame(pActiveView.FocusMap) as IMapFrame;
+//            IMapFrame pMapFrame = pGraphicsContainer.FindFrame(pActiveView.FocusMap) as IMapFrame;
 
-            if (pMapFrame == null)
-            {
-                return;
-            }
-            IMapSurroundFrame pMapSurroundFrame = pMapFrame.CreateSurroundFrame(pID, null);
+//            if (pMapFrame == null)
+//            {
+//                return;
+//            }
+//            IMapSurroundFrame pMapSurroundFrame = pMapFrame.CreateSurroundFrame(pID, null);
 
-            if (pMapSurroundFrame == null)
-            {
-                return;
-            }
+//            if (pMapSurroundFrame == null)
+//            {
+//                return;
+//            }
 
-            IEnvelope pEnv = axPageLayoutControl1.Page.PrintableBounds;//这里只是为了初始化一个Envelope
-            //在这里对enlp进行设置，其将作为指北针的外框，这样就可以控制其大小和位置
-            //如下面的设置是调整指北针的位置
-            IEnvelope pageEnlp = axPageLayoutControl1.Page.PrintableBounds;
-            pEnv.XMin = pageEnlp.XMin + pageEnlp.Width * 0.8;
-            pEnv.XMax = pageEnlp.XMin + pageEnlp.Width * 0.8;
-            pEnv.YMax = pageEnlp.YMax - pageEnlp.Height * 0.053;
-            pEnv.YMin = pageEnlp.YMin + pageEnlp.Height * 0.8;
+//            IEnvelope pEnv = axPageLayoutControl1.Page.PrintableBounds;//这里只是为了初始化一个Envelope
+//            //在这里对enlp进行设置，其将作为指北针的外框，这样就可以控制其大小和位置
+//            //如下面的设置是调整指北针的位置
+//            IEnvelope pageEnlp = axPageLayoutControl1.Page.PrintableBounds;
+//            pEnv.XMin = pageEnlp.XMin + pageEnlp.Width * 0.8;
+//            pEnv.XMax = pageEnlp.XMin + pageEnlp.Width * 0.8;
+//            pEnv.YMax = pageEnlp.YMax - pageEnlp.Height * 0.053;
+//            pEnv.YMin = pageEnlp.YMin + pageEnlp.Height * 0.8;
 
-            pElement = (IElement)pMapSurroundFrame;
-            pElement.Geometry = pEnv;
-            pMapSurroundFrame.MapSurround.Name = "MarkerNorthArrow";
-            INorthArrow pNorthArrow = pMapSurroundFrame.MapSurround as INorthArrow;
+//            pElement = (IElement)pMapSurroundFrame;
+//            pElement.Geometry = pEnv;
+//            pMapSurroundFrame.MapSurround.Name = "MarkerNorthArrow";
+//            INorthArrow pNorthArrow = pMapSurroundFrame.MapSurround as INorthArrow;
 
-            pGraphicsContainer.AddElement(pElement, 0);
-            axPageLayoutControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
+//            pGraphicsContainer.AddElement(pElement, 0);
+//            axPageLayoutControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, null, null);
 
         }
         #endregion
@@ -1196,21 +1206,55 @@ namespace ArcGISEngineApplication
 
                 if (pMouseOperator.Equals("addMapName"))
                 {
-                    AddTitle(InputMapName.mapName, e);
+                    AddTitle(InputMapName.mapName);
                     pMouseOperator = "";
                 }
-                else if (pMouseOperator.Equals(""))
-                {
+                else if (pMouseOperator.Equals("addCompass"))
 
+                {
+                    if (styleGalleryItem == null) return;
+                    IMapSurroundFrame mapSurroundFrame = new MapSurroundFrameClass();
+                    mapSurroundFrame.MapSurround = (IMapSurround)styleGalleryItem.Item;
+                    IElement element = mapSurroundFrame as IElement;
+                    IEnvelope envelope = new EnvelopeClass();
+                    IGeometry polygon = axPageLayoutControl1.TrackRectangle();
+                    envelope = polygon.Envelope;
+                  
+                    element.Geometry = envelope;
+                    axPageLayoutControl1.ActiveView.GraphicsContainer.AddElement(element, 0);
+
+                    //  axPageLayoutControl1.ActiveView.GraphicsContainer.AddElement((IElement)mapSurroundFrame, 0);
+                    axPageLayoutControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, mapSurroundFrame, null);
+                }
+                else if (pMouseOperator.Equals("addScaleBar"))
+                {
+                    
+                    if (styleGalleryItem == null) return; 
+            IEnvelope pEnv=axPageLayoutControl1.TrackRectangle();
+           // IMapFrame mapFrame = (IMapFrame)m_hookHelper.ActiveView.GraphicsContainer.FindFrame(m_hookHelper.ActiveView.FocusMap);
+             IMapSurroundFrame mapSurroundFrame = new MapSurroundFrameClass();
+          //   mapSurroundFrame.MapFrame = mapFrame;
+             mapSurroundFrame.MapSurround = (IMapSurround)styleGalleryItem.Item;
+
+            IElement element = (IElement)mapSurroundFrame;
+            element.Geometry = pEnv;
+
+            axPageLayoutControl1.ActiveView.GraphicsContainer.AddElement((IElement)mapSurroundFrame, 0);
+             axPageLayoutControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGraphics, mapSurroundFrame, null);
                 }
 
+            }
+            else if (e.button == 2)
+            {
+                contextMenuStrip3.Show(System.Windows.Forms.Control.MousePosition.X,
+                     System.Windows.Forms.Control.MousePosition.Y);
             }
         }
         #endregion
 
 
         #region 在pagelayout上添加图名
-        public void AddTitle(String s, IPageLayoutControlEvents_OnMouseDownEvent e)
+        public void AddTitle(String s )
         {
             //找到PageLayout            
             IPageLayout pPageLayout = axPageLayoutControl1.PageLayout;
@@ -1227,14 +1271,15 @@ namespace ArcGISEngineApplication
             pTextSymbol.Color = pColor;
             pTextElement.Symbol = pTextSymbol;
             //设置位置                   
-            IPoint pPoint = new PointClass();
-            pPoint.PutCoords(e.pageX, e.pageY);
+           // IEnvelope envelope = new EnvelopeClass();
+            IGeometry polygon = axPageLayoutControl1.TrackRectangle();
             IElement pElement = pTextElement as IElement;
-            pElement.Geometry = pPoint;
+            pElement.Geometry = polygon;
             //将元素添加到容器中         
             pGraphicsContainer.AddElement(pElement, 0);
             //刷新          
             axPageLayoutControl1.Refresh();
+            pMouseOperator = "";
         }
         #endregion
 
@@ -1242,8 +1287,16 @@ namespace ArcGISEngineApplication
         #region 添加比例尺
         private void 比例尺ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ESRI.ArcGIS.Geometry.IEnvelope envelope = new ESRI.ArcGIS.Geometry.EnvelopeClass();
-            AddScaleBar();
+            //ESRI.ArcGIS.Geometry.IEnvelope envelope = new ESRI.ArcGIS.Geometry.EnvelopeClass();
+           // AddScaleBar();
+
+           
+
+            AddCompass symbolForm = new AddCompass(esriSymbologyStyleClass.esriStyleClassScaleBars);
+            symbolForm.Text = "选择比例尺";
+            styleGalleryItem = symbolForm.GetItem(esriSymbologyStyleClass.esriStyleClassNorthArrows);
+            symbolForm.Dispose();
+            pMouseOperator = "addScaleBar";
         }
         #endregion
 
@@ -1882,76 +1935,35 @@ namespace ArcGISEngineApplication
         private void 求交ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string cmd="intersection";
-            Intersection intersection = new Intersection(axMapControl1,cmd);
+            OverlayAnalysis intersection = new OverlayAnalysis(axMapControl1,cmd);
             intersection.Show();
         }
 
         private void 求和ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string cmd = "union";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
+            OverlayAnalysis intersection = new OverlayAnalysis(axMapControl1, cmd);
             intersection.Show();
         }
 
         private void 裁剪ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string cmd = "clip";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
+            OverlayAnalysis intersection = new OverlayAnalysis(axMapControl1, cmd);
             intersection.Show();
         }
 
         private void 异或ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string cmd = "xor";
-            Intersection intersection = new Intersection(axMapControl1, cmd);
+            OverlayAnalysis intersection = new OverlayAnalysis(axMapControl1, cmd);
             intersection.Show();
         }
-
+      
         private void 符号化ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-           Symbolization symbolization = new Symbolization(axMapControl1);
-           symbolization.Show();
            
-        }
-
-        #region 符号化（没用的代码）
-        private void 点密度符号化ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Symbolization symbolization = new Symbolization(axMapControl1);
-            symbolization.Show();
-            //IMap pMap = axMapControl1.Map;
-            ////这里以面状图层为例
-            //IGeoFeatureLayer pGeoFeatureLayer = pMap.get_Layer(6) as IGeoFeatureLayer;
-            ////新建一个填充符号
-            //IFillSymbol pSimpleFills;
-            //pSimpleFills = new SimpleFillSymbolClass();
-            //IRgbColor color = new RgbColorClass();
-            //color.Red = 120;
-            //color.Green = 110;
-            //color.Blue = 0;
-            //pSimpleFills.Color = color;
-            ////新建线符号
-            //ILineSymbol pLineSymbol = new SimpleLineSymbolClass();
-            //color.Red = 255;
-            //color.Green = 0;
-            //color.Blue = 0;
-            //pLineSymbol.Color = color;
-            //pLineSymbol.Width = 3;
-            ////线符号作为该填充符号的外边缘
-            //pSimpleFills.Outline = pLineSymbol;
-            //ISimpleRenderer pSimpleRenderer;
-            //pSimpleRenderer = new SimpleRendererClass();
-            //pSimpleRenderer.Symbol = (ISymbol)pSimpleFills;
-
-
-            ////设置字段作为要素透明设置的属性
-            //ITransparencyRenderer pTransRenderer;
-            //pTransRenderer = pSimpleRenderer as ITransparencyRenderer;
-            //pTransRenderer.TransparencyField = "OBJECTID";
-            //pGeoFeatureLayer.Renderer = pTransRenderer as IFeatureRenderer;
-
-            ////刷新显示
-            //axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
+          
         }
 
        
@@ -2325,11 +2337,99 @@ namespace ArcGISEngineApplication
             pGeoFeatureLayer.Renderer = (IFeatureRenderer)pProportionalSymbolR;
             axMapControl1.ActiveView.PartialRefresh(esriViewDrawPhase.esriViewGeography, null, null);
         }
-#endregion
 
-      
 
-       /* private ITable CreatrWeightTable(string filePath, string tableName, IFeatureClass pFeatureClass, string fieldName)
+        private void 显示ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 添加ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 符号化ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Symbolization symbolization = new Symbolization(axMapControl1, axTOCControl1);
+                //symbolization.InitUI();
+                if (symbolization == null || symbolization.IsDisposed)
+                {
+                    symbolization = new Symbolization();
+                }
+                symbolization.Show();
+                axMapControl1.Refresh();
+                axTOCControl1.Update();
+            }
+
+            catch
+            {
+            }
+        }
+
+        private void 导出地图ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            exportMapToImage();
+        }
+        private void exportMapToImage()
+        {
+            try
+            {
+                SaveFileDialog pSaveDialog = new SaveFileDialog();
+                pSaveDialog.FileName = "";
+                pSaveDialog.Filter = "JPG图片(*.JPG)|*.jpg|tif图片(*.tif)|*.tif|PDF文档(*.PDF)|*.pdf";
+                if (pSaveDialog.ShowDialog() == DialogResult.OK)
+                {
+                    double iScreenDispalyResolution = axPageLayoutControl1.ActiveView.ScreenDisplay.DisplayTransformation.Resolution;// 获取屏幕分辨率的值
+                    IExporter pExporter = null;
+                    if (pSaveDialog.FilterIndex == 1)
+                    {
+                        pExporter = new JpegExporterClass();
+                    }
+                    else if (pSaveDialog.FilterIndex == 2)
+                    {
+                        pExporter = new TiffExporterClass();
+                    }
+                    else if (pSaveDialog.FilterIndex == 3)
+                    {
+                        pExporter = new PDFExporterClass();
+                    }
+                    pExporter.ExportFileName = pSaveDialog.FileName;
+                    pExporter.Resolution = (short)iScreenDispalyResolution; //分辨率
+                    tagRECT deviceRect = axPageLayoutControl1.ActiveView.ScreenDisplay.DisplayTransformation.get_DeviceFrame();
+                    IEnvelope pDeviceEnvelope = new EnvelopeClass();
+                    pDeviceEnvelope.PutCoords(deviceRect.left, deviceRect.bottom, deviceRect.right, deviceRect.top);
+                    pExporter.PixelBounds = pDeviceEnvelope; // 输出图片的范围
+                    ITrackCancel pCancle = new CancelTrackerClass();//可用ESC键取消操作
+                    axPageLayoutControl1.ActiveView.Output(pExporter.StartExporting(), pExporter.Resolution, ref deviceRect, axPageLayoutControl1.ActiveView.Extent, pCancle);
+                    Application.DoEvents();
+                    pExporter.FinishExporting();
+                    MessageBox.Show("导出成功");
+                }
+
+            }
+            catch (Exception Err)
+            {
+                MessageBox.Show(Err.Message, "输出图片", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pMouseOperator != null)
+            {
+                pMouseOperator = null;
+            }
+
+        }
+
+
+
+
+
+        /* private ITable CreatrWeightTable(string filePath, string tableName, IFeatureClass pFeatureClass, string fieldName)
         {
 
             IWorkspaceFactory pWs = new ShapefileWorkspaceFactoryClass();

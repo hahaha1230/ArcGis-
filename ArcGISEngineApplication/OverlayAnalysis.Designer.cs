@@ -1,6 +1,6 @@
 ﻿namespace ArcGISEngineApplication
 {
-    partial class Intersection
+    partial class OverlayAnalysis
     {
         /// <summary>
         /// Required designer variable.
@@ -148,7 +148,7 @@
             this.progressBar1.Size = new System.Drawing.Size(435, 23);
             this.progressBar1.TabIndex = 11;
             // 
-            // Intersection
+            // OverlayAnalysis
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -165,8 +165,8 @@
             this.Controls.Add(this.cbInputLayer);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Intersection";
-            this.Text = "Intersection";
+            this.Name = "OverlayAnalysis";
+            this.Text = "叠置分析";
             this.Load += new System.EventHandler(this.Intersection_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

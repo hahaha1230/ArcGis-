@@ -88,6 +88,10 @@ D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\bin\Debu
 D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.ContainsQuery.resources
 D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.BufferSettings.resources
 D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.NewFeatureClass.resources
-D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Intersection.resources
 D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.UnionOverlay.resources
 D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.Symbolization.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.NewField.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.OverlayAnalysis.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.CeShi.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.AddCompass.resources
+D:\ceshi\C#2012\ArcGISEngineApplication (8) (3)\ArcGISEngineApplication\obj\x86\Debug\ArcGISEngineApplication.AddScaleBar.resources

@@ -98,6 +98,7 @@ namespace ArcGISEngineApplication
             IFeatureLayer bufferLayer = GetFeatureLayer(strBufferLayer);
             buffer.in_features = bufferLayer;
 
+          
             string outputFullPath = System.IO.Path.Combine(strOutputPath, textBox1.Text);
             buffer.out_feature_class = outputFullPath;
             buffer.buffer_distance_or_field = bufferDistanceField + " " + (string)comboBox1.SelectedItem;
